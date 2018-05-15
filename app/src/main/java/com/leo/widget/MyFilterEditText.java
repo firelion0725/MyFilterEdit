@@ -34,7 +34,9 @@ public class MyFilterEditText extends EditText {
         static final char INTERVAL = '·';
     }
 
-    //  flags 值
+    /**
+     * 不过滤
+     */
     private static final int NONE_DEFAULT = 0;
     /**
      * 过滤空格
