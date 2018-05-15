@@ -3,7 +3,7 @@
 
 通过在xml布局文件内配置自定义参数进行控制
 
-####   filter space_filter:只过滤空格，special_characters_filter：过滤特殊字符（只通过英文大小写 汉子及“·” 通常用于人名及登陆）
+###### filter space_filter:只过滤空格，special_characters_filter：过滤特殊字符（只通过英文大小写 汉子及“·” 通常用于人名及登陆）
 
 <p>一个xml例子</p>
 
