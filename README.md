@@ -5,7 +5,7 @@
 
  filter space_filter:只过滤空格  
  special_characters_filter：过滤特殊字符（只通过英文大小写 汉子及“·” 通常用于人名及登陆）  
- number_decimal_filter：小数位数输入过滤器（只保留两位小数），必须配合 android:inputType="numberDecimal" 不然不生效
+ number_decimal_filter：小数位数输入过滤器（只保留两位小数）必须配合 android:inputType="numberDecimal" 不然不生效
 
 <p>一个xml例子</p>
 
