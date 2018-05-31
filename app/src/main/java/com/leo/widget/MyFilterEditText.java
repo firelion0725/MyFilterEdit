@@ -5,11 +5,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.InputFilter;
 import android.text.LoginFilter;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +21,9 @@ import java.util.List;
  */
 @SuppressLint("AppCompatCustomView")
 public class MyFilterEditText extends EditText {
+
+    private static final int NUMBER_DECIMAL = 8194;
+    private static final String DECIMAL = ".";
 
     static class LoginFilterValue {
         static final char ZERO = '0';
@@ -46,11 +49,13 @@ public class MyFilterEditText extends EditText {
      * 过滤特殊字符包括空格（只有中文 英文大小写及"·" 可以通过）
      */
     private static final int SPECIAL_CHARACTERS_FILTER = 2;
-    //备用FLAG 值
-    //private static final int BORDER_BOTTOM = 4;
+    /**
+     * 小数位数过滤器（保留两位）
+     */
+    private static final int NUMBER_DECIMAL_FILTER = 4;
     //private static final int BORDER_LEFT = 8;
 
-    private int[] filterNums = {SPACE_FILTER, SPECIAL_CHARACTERS_FILTER};
+    private int[] filterNums = {SPACE_FILTER, SPECIAL_CHARACTERS_FILTER, NUMBER_DECIMAL_FILTER};
 
     /**
      * 当前值
@@ -79,12 +84,23 @@ public class MyFilterEditText extends EditText {
         initEdit(context, attrs);
     }
 
-    InputFilter inputSpaceFilter = new InputFilter() {
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            return TextUtils.equals(source, " ") ? "" : null;
+
+    InputFilter decimalDigitsFilter = (source, start, end, dest, start2, end2) -> {
+        String destString = String.valueOf(dest);
+        if (getInputType() == NUMBER_DECIMAL) {
+            if (destString.contains(DECIMAL)) {
+                int bitPos = destString.indexOf(DECIMAL);
+                int numOfBits = destString.length() - bitPos;
+                if (numOfBits > 2) {
+                    return "";
+                }
+            }
         }
+        return source;
     };
+
+
+    InputFilter inputSpaceFilter = (source, start, end, dest, start2, end2) -> TextUtils.equals(source, " ") ? "" : null;
 
     LoginFilter inputSpecialCharacters = new LoginFilter.UsernameFilterGeneric() {
         @Override
@@ -168,6 +184,9 @@ public class MyFilterEditText extends EditText {
             case SPECIAL_CHARACTERS_FILTER:
                 inputFilter = inputSpecialCharacters;
                 break;
+            case NUMBER_DECIMAL_FILTER:
+                inputFilter = decimalDigitsFilter;
+                break;
             default:
                 break;
         }
@@ -176,6 +195,17 @@ public class MyFilterEditText extends EditText {
             filterList.add(inputFilter);
         }
     }
+
+    /**
+     * 将指定的字符串转换成制定小数点位数的double
+     */
+    public static String formatChangeToDouble(String value) {
+        BigDecimal bd1 = new BigDecimal(value);
+        bd1 = bd1.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return bd1.toString();
+    }
+
+    //-------------flag 方法---------------------
 
     /**
      * flagSet是否包含flag
