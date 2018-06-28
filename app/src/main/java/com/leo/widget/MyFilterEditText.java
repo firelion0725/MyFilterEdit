@@ -3,11 +3,11 @@ package com.leo.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.InputFilter;
 import android.text.LoginFilter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.EditText;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
  * @function 定制可自动过滤的EditText
  */
 @SuppressLint("AppCompatCustomView")
-public class MyFilterEditText extends EditText {
+public class MyFilterEditText extends AppCompatEditText {
 
     private static final int NUMBER_DECIMAL = 8194;
     private static final String DECIMAL = ".";
@@ -76,11 +76,6 @@ public class MyFilterEditText extends EditText {
 
     public MyFilterEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initEdit(context, attrs);
-    }
-
-    public MyFilterEditText(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         initEdit(context, attrs);
     }
 
