@@ -1,6 +1,5 @@
 package com.leo.widget;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatEditText;
@@ -19,7 +18,6 @@ import java.util.List;
  * @date 2018/4/25
  * @function 定制可自动过滤的EditText
  */
-@SuppressLint("AppCompatCustomView")
 public class MyFilterEditText extends AppCompatEditText {
 
     private static final int NUMBER_DECIMAL = 8194;

@@ -1,7 +1,9 @@
-package com.leo.widget;
+package com.leo.test;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.leo.widget.MyFilterEditText;
 
 public class MainActivity extends AppCompatActivity {
 
